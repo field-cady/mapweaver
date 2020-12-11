@@ -16,10 +16,13 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets, server=serv
 # gunicorn graph:app.server -b :8000
 
 df = pd.read_csv('/home/taco/paris.csv')
-lat_eps = np.random.uniform(-0.005, 0.005, size=df.shape[0])
-lon_eps = np.random.uniform(-0.005, 0.005, size=df.shape[0])
+lat_eps = np.random.uniform(-0.002, 0.002, size=df.shape[0])
+lon_eps = np.random.uniform(-0.002, 0.002, size=df.shape[0])
 df['lat'] += lat_eps
 df['lon'] += lon_eps
+df['idx'] = df.index.astype(str)
+
+df['record'] = df.to_dict(orient='records')
 
 # Category column
 main_categories = ['Monitoring Violations', 'Effluent Violations', 'Reporting Violations']
@@ -51,34 +54,46 @@ type_checklist_div = html.Div([
     )
 ], style={'display': 'inline-block', 'vertical-align': 'top', 'margin-left': '3vw', 'margin-top': '3vw'})
 
+def make_row(elems):
+    elems_new = [
+        html.Div(e, style={'display': 'inline-block', 'vertical-align': 'middle', 'margin-left': '0vw', 'margin-top': '0vw'})
+        for e in elems]
+    return html.Div(elems_new, style={'className': 'row'})
+
 app.layout = html.Div([
-    html.H1('PARIS Violations in Last Year v3'),
+    html.H1('PARIS Violations in Last Year'),
     html.Div(id='text-content'),
-    html.Div(id='violation-summary'),
     html.Div([
         category_checklist_div,
         type_checklist_div
     ], style={'className': 'row'}),
-    dcc.Graph(id='map', figure={
-        'data': [{
-            'lat': df['lat'],
-            'lon': df['lon'],
-            'marker': {
-                #'color': df['YEAR'],
-                'size': 8,
-                'opacity': 0.6
-            },
-            'customdata': df['FacilityId'],
-            'type': 'scattermapbox'
-        }],
-        'layout': {
-            'mapbox': {
-                'accesstoken': 'pk.eyJ1IjoiZmllbGRjYWR5IiwiYSI6ImNqd3Rmb2d3bjBkMDA0OW5yamYxNnRwdGwifQ.kBilx8iMkTn8RUyrO7ZHGA'
-            },
-            'hovermode': 'closest',
-            'margin': {'l': 0, 'r': 0, 'b': 0, 't': 0}
-        }
-    })
+    html.Div([
+        html.Div([dcc.Graph(id='map', figure={
+            'data': [{
+                'lat': df['lat'],
+                'lon': df['lon'],
+                'marker': {
+                    #'color': df['YEAR'],
+                    'size': 8,
+                    'opacity': 0.6
+                },
+                'customdata': df['idx'],
+                'type': 'scattermapbox'
+            }],
+            'layout': {
+                'mapbox': {
+                    'center': {'lon':-120, 'lat': 48},
+                    'accesstoken': 'pk.eyJ1IjoiZmllbGRjYWR5IiwiYSI6ImNqd3Rmb2d3bjBkMDA0OW5yamYxNnRwdGwifQ.kBilx8iMkTn8RUyrO7ZHGA',
+                    'zoom': 5
+                },
+                'hovermode': 'closest',
+                'margin': {'l': 0, 'r': 0, 'b': 0, 't': 0}
+            }
+        })
+        ], style={'display': 'inline-block', 'vertical-align': 'middle', 'margin-left': '0vw', 'margin-top': '0vw', 'width':'70%'}),
+        html.Div(id='violation-summary',
+                 style={'display': 'inline-block', 'vertical-align': 'top', 'margin-left': '0vw', 'margin-top': '0vw'})
+    ], style={'className': 'row'})
 ])
 
 
@@ -87,14 +102,28 @@ app.layout = html.Div([
     dash.dependencies.Output('violation-summary', 'children'),
     [dash.dependencies.Input('map', 'clickData')])
 def update_summary_text(clickData):
-    print('\nA\n')
-    try: s = df[df['FacilityId'] == clickData['points'][0]['customdata']]
-    except: return html.H3('')
-    print('\nB\n')
-    ret = html.H3('foobar' + str(s.iloc[0]['Category']) + '--' + str(s.iloc[0]['FacilityId']))
-    ret = html.H3(html.A('bipper' + str(s.iloc[0]['Category']) + '--' + str(s.iloc[0]['FacilityId']), href='http://www.cnn.com'))
-    print('\nC\n')
-    return ret
+    print('\n**In update_summary_text')
+    print(clickData)
+    #s = df.iloc[clickData['points'][0]['pointNumber']]
+    s = df[df.idx==clickData['points'][0]['customdata']].iloc[0]
+    rec = dict(zip(s.index, s))
+    print('rec:', rec)
+    print('\n--B\n')
+    fac_url = 'https://apps.ecology.wa.gov/paris/FacilitySummary.aspx?FacilityId='+str(rec['FacilityId'])
+    fac_link = html.A(rec['Facility Name'], href=fac_url)
+    violation_url = 'https://apps.ecology.wa.gov/paris/ComplianceAndViolations/PopupViolationTrigger.aspx?ViolationId='+str(rec['ViolationId'])
+    violation_link = html.A(rec['ViolationId'], href=violation_url)
+    print('\n--C\n')
+    return html.Div([
+        html.H3('Details'),
+        make_row([html.H6('Facility: '), fac_link]),
+        make_row([html.H6('Violation: '), violation_link]),
+        make_row([html.H6('Category: '), rec['Category']]),
+        make_row([html.H6('Date: '), rec['Violation Date']])
+    ])
+
+
+
 
 @app.callback(
     dash.dependencies.Output('map', 'figure'),
@@ -103,6 +132,7 @@ def update_summary_text(clickData):
         dash.dependencies.Input('type_checklist', 'value')
     ])
 def update_map(category_checklist_value, type_checklist_value):
+    print('\n** In update_map')
     print('making new map w scale down', category_checklist_value, 'w other fix')
     print('  making new map w scale down', type_checklist_value, 'w other fix')
     #df['lat'] = df['lat'] / 2
@@ -129,17 +159,20 @@ def update_map(category_checklist_value, type_checklist_value):
         'data': [{
             'lat': ddf['lat'],
             'lon': ddf['lon'],
+            'customdata': ddf['idx'],
             'marker': {
                 #'color': df['YEAR'],
                 'size': 8,
                 'opacity': 0.6
             },
-            'customdata': ddf['FacilityId'],
+            'idx': ddf['idx'],
             'type': 'scattermapbox'
         }],
         'layout': {
             'mapbox': {
-                'accesstoken': 'pk.eyJ1IjoiZmllbGRjYWR5IiwiYSI6ImNqd3Rmb2d3bjBkMDA0OW5yamYxNnRwdGwifQ.kBilx8iMkTn8RUyrO7ZHGA'
+                'center': {'lon':-120, 'lat': 48},
+                'accesstoken': 'pk.eyJ1IjoiZmllbGRjYWR5IiwiYSI6ImNqd3Rmb2d3bjBkMDA0OW5yamYxNnRwdGwifQ.kBilx8iMkTn8RUyrO7ZHGA',
+                'zoom': 5
             },
             'hovermode': 'closest',
             'margin': {'l': 0, 'r': 0, 'b': 0, 't': 0}
