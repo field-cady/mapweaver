@@ -1,0 +1,104 @@
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+
+<title>Hike Finder Map — Washington Trails Association</title>
+
+<!--<link href="https://www.wta.org/++resource++wta.content/maps/hike_finder.css?v=5.5" rel="stylesheet" />-->
+<link href="wta2.css" rel="stylesheet" />
+<style>
+</style>
+
+    
+</head>
+<header id="portal-top">
+
+
+<!-- End Google Tag Manager (noscript) -->
+    </header>
+
+
+
+<div id="hike-finder-app-container" class="hike-finder-app-container">
+
+    <div class="mobile-map-open-buttons">
+        <button id="map-gallery-open" class="map-gallery-open" type="button">
+            Gallery
+        </button>
+        <button id="map-filters-open" class="map-filters-open" type="button">
+            Filters
+        </button>
+    </div>
+
+    <!-- so we can use an native HTML form reset button -->
+    <form id="map-filters2" class="map-filters">
+
+        <h2 class="map-filters-heading">Filters</h2>
+
+        <div class="map-filter-group-container" id="map-filter-group-trail-features-ratings">
+
+            <h3 class="map-filter-group-toggle">
+                <button type="button" aria-expanded="false">
+                    <span class="screen-reader-text screen-reader-text-show-hide">Show </span>Trail Features &amp; Ratings
+                    <span class="screen-reader-text"> filters</span>
+                    <span class="map-filter-group-count">
+                        <span class="screen-reader-text"> with </span>
+                        <span class="map-filter-group-count-value" id="map-filter-group-trail-features-ratings-count"></span>
+                        <span class="screen-reader-text"> selections</span>
+                    </span>
+                </button>
+            </h3>
+            <div class="map-filter-group">
+
+                <div class="map-filter map-filter-rating">
+                    <label for="map-filter-rating">Rating</label>
+                    <select name="rating:int" id="map-filter-rating">
+                        <option value="0">
+                                No minimum
+                        </option>
+                        <option value="1">
+                                At least 1 star
+                        </option>
+                        <option value="2">
+                                At least 2 stars
+                        </option>
+                        <option value="3">
+                                At least 3 stars
+                        </option>
+                        <option value="4">
+                                At least 4 stars
+                        </option>
+                    </select>
+                </div>
+
+                <button class="map-filter-group-submit">Apply</button>
+
+            </div>
+
+        </div>
+
+        <div class="map-filter-group" id="map-filter-group-hike-name-search">
+
+            <div id="map-filter-hike-name-search" class="map-filter-hike-name-search map-filter">
+                <h3 class="screen-reader-text">Search</h3>
+                <label for="map-filter-hike-name-search" class="screen-reader-text">Search hike names</label>
+                <input name="title" placeholder="Search hike names" type="search" />
+                <button class="map-filter-group-submit" type="submit">Go</button>
+            </div>
+
+        </div>
+
+        <button class="map-filters-submit-master" type="submit">Apply</button>
+
+        <button id="map-filters-reset" class="map-filters-reset" type="reset">
+            Clear Selections
+        </button>
+
+        <button id="map-filters-close" class="map-filters-close map-ui-close-button" type="button">
+            <span class="screen-reader-text">Close Map Filters</span>
+        </button>
+
+    </form>
+ 
+ </div>
+
+ 
