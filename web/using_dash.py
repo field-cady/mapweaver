@@ -26,14 +26,26 @@ df['record'] = df.to_dict(orient='records')
 
 # Category column
 main_categories = ['Monitoring Violations', 'Effluent Violations', 'Reporting Violations']
-category_checklist_div = html.Div([
+'''category_checklist_div = html.Div([
     html.H3('Categories'),
     dcc.Checklist(
         id='category_checklist',
         options=[{'label': c, 'value': c} for c in main_categories] + [{'label': 'Other', 'value': ''}],
         value=main_categories+['']
     )
+], style={'display': 'inline-block', 'vertical-align': 'top', 'margin-left': '3vw', 'margin-top': '3vw'})'''
+category_checklist_div = html.Div([
+    html.H3('Categories'),
+    dcc.Dropdown(
+        id='category_checklist',
+        options=[{'label': c, 'value': c} for c in main_categories] + [{'label': 'Other', 'value': ''}],
+        value=[],
+        multi=True,
+        placeholder='Categories',
+        searchable=False
+    )
 ], style={'display': 'inline-block', 'vertical-align': 'top', 'margin-left': '3vw', 'margin-top': '3vw'})
+
 
 # Permit Type column
 main_types = [
@@ -45,12 +57,22 @@ main_types = [
     'Sand and Gravel GP',
     'Reclaimed Water IP'
 ]
-type_checklist_div = html.Div([
+'''type_checklist_div = html.Div([
     html.H3('Permit Types'),
     dcc.Checklist(
         id='type_checklist',
         options=[{'label': c, 'value': c} for c in main_types] + [{'label': 'Other', 'value': ''}],
         value=main_types+['']
+    )
+], style={'display': 'inline-block', 'vertical-align': 'top', 'margin-left': '3vw', 'margin-top': '3vw'})'''
+type_checklist_div = html.Div([
+    html.H3('Permit Types'),
+    dcc.Dropdown(
+        id='type_checklist',
+        options=[{'label': c, 'value': c} for c in main_types] + [{'label': 'Other', 'value': ''}],
+        value=[],
+        multi=True,
+        placeholder='Permit Types'
     )
 ], style={'display': 'inline-block', 'vertical-align': 'top', 'margin-left': '3vw', 'margin-top': '3vw'})
 
@@ -65,7 +87,8 @@ app.layout = html.Div([
     html.Div(id='text-content'),
     html.Div([
         category_checklist_div,
-        type_checklist_div
+        type_checklist_div,
+        #html.Button('Apply Filter', id='apply-filters', n_clicks=0)
     ], style={'className': 'row'}),
     html.Div([
         html.Div([dcc.Graph(id='map', figure={
@@ -114,13 +137,15 @@ def update_summary_text(clickData):
     violation_url = 'https://apps.ecology.wa.gov/paris/ComplianceAndViolations/PopupViolationTrigger.aspx?ViolationId='+str(rec['ViolationId'])
     violation_link = html.A(rec['ViolationId'], href=violation_url)
     print('\n--C\n')
-    return html.Div([
+    buffer = html.Div([], style={'display': 'inline-block', 'width': '5%', 'align': 'right'})
+    details = html.Div([
         html.H3('Details'),
         make_row([html.H6('Facility: '), fac_link]),
         make_row([html.H6('Violation: '), violation_link]),
         make_row([html.H6('Category: '), rec['Category']]),
         make_row([html.H6('Date: '), rec['Violation Date']])
     ])
+    return make_row([buffer, details])
 
 
 
@@ -137,14 +162,16 @@ def update_map(category_checklist_value, type_checklist_value):
     print('  making new map w scale down', type_checklist_value, 'w other fix')
     #df['lat'] = df['lat'] / 2
     df['False'] = False
-    to_keep_category = df['False']
+    if len(category_checklist_value)==0: to_keep_category = ~df['False']
+    else: to_keep_category = df['False']
     for v in category_checklist_value:
         if v in main_categories:
             to_keep_category = to_keep_category | df['Category'].str.contains(v)
         else:
             is_other = ~df['Category'].isin(main_categories)
             to_keep_category = to_keep_category | is_other
-    to_keep_type = df['False']
+    if len(type_checklist_value)==0: to_keep_type = ~df['False']
+    else: to_keep_type = df['False']
     for v in type_checklist_value:
         if v in main_types:
             to_keep_type = to_keep_type | df['Permit Type'].str.contains(v)
