@@ -26,6 +26,10 @@ var initializeMap = function() {
   });
 }
 
+
+
+
+
 var downloadDataAndRender = function(url) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
