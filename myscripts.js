@@ -30,6 +30,7 @@ var downloadDataAndRender = function(url) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
     xhr.responseType = 'json';
+    console.log('foobar')
     xhr.onload = function() {
       data=xhr.response;
       console.log('data:')
