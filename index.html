@@ -1,0 +1,160 @@
+<head title="Overabundant Fish Lakes">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-34354121-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-34354121-1');
+</script>
+
+<!-- Leaflet Maps -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+ <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
+
+<link rel="icon" type="image/png" href="trout.png">
+
+<!--<script src="https://code.angularjs.org/1.6.9/angular.js"></script>-->
+
+<!--testing-->
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.0/mapbox-gl.css' rel='stylesheet' />
+
+
+	<link href="styles/multiselect.css" rel="stylesheet"/>
+	<script src="multiselect.min.js"></script>
+  
+  
+  
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto;
+  padding: 0px;
+}
+.grid-item {
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 0px;
+  font-size: 20px;
+  text-align: left;
+}
+</style>
+  
+</head>
+
+
+
+
+<body ng-app="app">
+
+
+<!--<h1 ng-controller="HelloWorldCtrl">{{message}}</h1>
+<script>
+    angular.module("app", []).controller("HelloWorldCtrl", function($scope) {
+    $scope.message="Overabundant Fish Lakes of Washington State"
+    } )
+</script>-->
+
+<h1>High Fish Lakes of Washington State</h1>
+
+
+<!--
+<p>This page shows the locations of overabundant mountain fishing lakes,
+with data scraped from the
+<a href="https://wdfw.wa.gov/fishing/locations/high-lakes/overabundant">WDFW site</a>.
+</p>
+-->
+
+
+
+<b>Filters:</b>
+<br>
+
+
+    
+<div class="grid-container">
+  <div class="grid-item">Cateogry:
+    <select id='categorySelect' multiple>
+    <option value='Monitoring Violations' selected>Monitoring Violations</option>
+    <option value='Effluent Violations' selected>Effluent Violations</option>
+    <option value='Reporting Violations' selected>Reporting Violations</option>
+    <option value='Other' selected>Other</option>
+    </select>
+  </div>
+  <div class="grid-item">Permit Type
+    <select id='typeSelect' multiple>
+    <option value='Municipal NPDES IP' selected>Municipal NPDES IP</option>
+    <option value='Industrial NPDES IP' selected>Industrial NPDES IP</option>
+    <option value='Industrial (IU) to POTW/PRIVATE SWDP IP' selected>Industrial (IU) to POTW/PRIVATE SWDP IP</option>
+    <option value='Municipal to ground SWDP IP' selected>Municipal to ground SWDP IP</option>
+    <option value='Industrial to ground SWDP IP' selected>Industrial to ground SWDP IP</option>
+    <option value='Sand and Gravel GP' selected>Sand and Gravel GP</option>
+    <option value='Reclaimed Water IP' selected>Reclaimed Water IP</option>
+    <option value='Other' selected>Other</option>
+    </select>
+  </div>
+</div>
+
+
+
+<button onclick='updateMarkers()'>Apply Filters</button>
+
+<br>
+
+<!--
+<div style="height:70%;width:70%" id="mapid"></div>
+-->
+<!--testing-->
+<div id='mapid' style='width: 100%; height: 50%;'></div>
+
+
+
+<p>
+This site was created as a project by
+<a href="http://www.fieldcady.com">Field Cady</a>.
+If you have any feedback you can reach him at field.cady@gmail.com.
+If the map is too far out of date (see the last update above)
+you can ping him and ask him to update it.
+</p>
+
+<p>It has recently been updated to load more quickly.</p>
+
+<p>
+<div id="last_update_timestamp">The data was last updated at: </div>
+</p>
+
+<script type="text/javascript" src="myscripts.js"></script>
+
+
+<!-- Dropdown Checkbox init -->
+<script>
+	document.multiselect('#categorySelect')
+		.setCheckBoxClick("checkboxAll", function(target, args) {
+			console.log("Checkbox 'Select All' was clicked and got value ", args.checked);
+		})
+		.setCheckBoxClick("1", function(target, args) {
+			console.log("Checkbox for item with value '1' was clicked and got value ", args.checked);
+		});
+  document.multiselect('#typeSelect')
+		.setCheckBoxClick("checkboxAll", function(target, args) {
+			console.log("Checkbox 'Select All' was clicked and got value ", args.checked);
+		})
+		.setCheckBoxClick("1", function(target, args) {
+			console.log("Checkbox for item with value '1' was clicked and got value ", args.checked);
+		});
+
+	function enable() {
+		document.multiselect('#testSelect1').setIsEnabled(true);
+	}
+
+	function disable() {
+		document.multiselect('#testSelect1').setIsEnabled(false);
+	}
+</script>
+
+</body>
