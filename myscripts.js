@@ -32,6 +32,8 @@ var downloadDataAndRender = function(url) {
     xhr.responseType = 'json';
     xhr.onload = function() {
       data=xhr.response;
+      console.log('data:')
+      console.log(data);
       renderData(data);
     };
     xhr.send();
