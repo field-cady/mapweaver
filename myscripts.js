@@ -37,6 +37,7 @@ var downloadDataAndRender = function(url) {
     console.log('foobar')
     xhr.onload = function() {
       data=xhr.response;
+      console.log(xhr);
       console.log('data:')
       console.log(data);
       renderData(data);
@@ -163,5 +164,6 @@ if (location.origin === "file://") {
     //data = DEFAULT_DATA
     renderData(DEFAULT_DATA);
   } else {
-    downloadDataAndRender("data/paris_violations.json");
+    console.log('In the Cloud');
+    downloadDataAndRender("data/paris_violations_small.json");
 }
