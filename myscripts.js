@@ -34,10 +34,10 @@ var downloadDataAndRender = function(url) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
     xhr.responseType = 'json';
-    console.log('foobar')
+    console.log('downloading', url);
     xhr.onload = function() {
       data=xhr.response;
-      console.log(xhr);
+      console.log('xhr', xhr);
       console.log('data:')
       console.log(data);
       renderData(data);
@@ -165,5 +165,5 @@ if (location.origin === "file://") {
     renderData(DEFAULT_DATA);
   } else {
     console.log('In the Cloud');
-    downloadDataAndRender("data/paris_violations_small.json");
+    downloadDataAndRender("data/paris_violations.json");
 }
