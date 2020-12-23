@@ -69,14 +69,23 @@ var addViolationsToMap = function(violations) {
 
 
 // Helper utility functions
+/*
+{"Facility Name": "foo4", "Permit Number": "ST0006206", "Permit Status": "Active", "Permit Type": 
+"Municipal to ground SWDP IP", "City": "LACEY", "County": "Thurston", "Violation Date": "9/6/2020", "Is Addressed": "No", 
+"Category": "Monitoring Violations", "Type": "Analysis not Conducted", "Parameter": " ", "Units": " ", "Statistical Base": " ", 
+"Measurement Value": " ", "Benchmark/Limit": " ", "Violation Notes": " ", "Violation Override": " ", "Feature Name": " ", 
+"ViolationId": "1638438", "FacilityId": "5905309", "let": 47.0493011474609, "lon": -122.801742553711, "lat": 47.0493011474609}
+*/
 
 var violation2marker_html = function(vio) {
   violation_url = 'https://apps.ecology.wa.gov/paris/ComplianceAndViolations/PopupViolationTrigger.aspx?ViolationId='+vio['ViolationId']
-  clickable_name = '<a target="_blank" href="'+violation_url+'">'+vio['Facility Name']+'</a>'
-  //elevation = '<p>Elevation: '+String(Math.round(lk['elevation']))+'ft'
-  //county = '<p>County: '+lk['county']+'</p>'
-  //size = '<p>Size: '+String(lk['acres'])+' Acres</p>'
-  return clickable_name//+elevation+county+size;
+  clickable_name = '<h3>Facility:</h3><a target="_blank" href="'+violation_url+'">'+vio['Facility Name']+'</a>'
+  category = '<h3>Category:</h3>'+vio['Category']
+  permit_type = '<h3>Permit Type:</h3>'+vio['Permit Type']
+  date = '<h3>Violation Date:</h3>'+vio['Violation Date']
+  is_addressed = '<h3>Is Addressed:</h3>'+vio['Is Addressed']
+  //return clickable_name + '<br>' + category + '<br>' + permit_type + '<br>' + date + '<br>' + is_addressed
+  return clickable_name +  category +  permit_type +  date +  is_addressed
 }
 
 var MAIN_CATEGORIES = ['Monitoring Violations', 'Effluent Violations', 'Reporting Violations']
@@ -126,7 +135,7 @@ var getFilterFunction = function() {
   }
 
   return function(vio){
-    return category_filter(vio.Category) // & type_filter(vio['Permit Type'])
+    return category_filter(vio.Category) & type_filter(vio['Permit Type'])
   }
 
 
