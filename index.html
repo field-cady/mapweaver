@@ -106,7 +106,28 @@
 </style>
 
 
+<style>
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid blue;
+  border-bottom: 16px solid blue;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
 
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
 
 </head>
 
@@ -138,7 +159,7 @@
     <option value='Other' selected>Other</option>
     </select>
   </div>
-  <div class="grid-item">Permit Type
+  <div class="grid-item">Permit Type:
     <select id='typeSelect' multiple>
     <option value='Municipal NPDES IP' selected>Municipal NPDES IP</option>
     <option value='Industrial NPDES IP' selected>Industrial NPDES IP</option>
@@ -151,7 +172,7 @@
     </select>
   </div>
   <div class="grid-item">
-    Submit
+    Submit:
     <button onclick='updateMarkersWithLoader();'>Apply Filters</button>
   </div>
 </div>
@@ -160,6 +181,10 @@
 
 
 
+<div class="popup">
+  <span class="popuptext" id="myPopup">Loading</span>
+  
+</div>
 
 <script>
 // When the user clicks on div, open the popup
