@@ -38,7 +38,7 @@
   padding: 0px;
 }
 .grid-item {
-  border: 1px solid rgba(0, 0, 0, 0.8);
+  border: 0px solid rgba(0, 0, 0, 0.8);
   padding: 0px;
   font-size: 20px;
   text-align: left;
@@ -106,28 +106,7 @@
 </style>
 
 
-<style>
-.loader {
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid blue;
-  border-bottom: 16px solid blue;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-}
 
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-</style>
 
 </head>
 
@@ -151,7 +130,7 @@
 
     
 <div class="grid-container">
-  <div class="grid-item">Cateogry:
+  <div class="grid-item">Category:
     <select id='categorySelect' multiple>
     <option value='Monitoring Violations' selected>Monitoring Violations</option>
     <option value='Effluent Violations' selected>Effluent Violations</option>
@@ -171,19 +150,16 @@
     <option value='Other' selected>Other</option>
     </select>
   </div>
+  <div class="grid-item">
+    Submit
+    <button onclick='updateMarkersWithLoader();'>Apply Filters</button>
+  </div>
 </div>
 
 
 
 
-<button onclick='updateMarkersWithLoader();'>Apply Filters</button>
 
-<div class="loader" id="loader" style="display:none"></div>
-
-<div class="popup" onclick="loaderOff();console.log(18);setTimeout(updateMarkers,500);">Click me to toggle the popup!
-  <span class="popuptext" id="myPopup">Loading</span>
-  
-</div>
 
 <script>
 // When the user clicks on div, open the popup
