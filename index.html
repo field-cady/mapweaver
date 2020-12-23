@@ -145,7 +145,7 @@
 
 
 
-<h1>PARIS Violations in Lat Year</h1>
+<h1>PARIS Violations in Last Year</h1>
 
 
 
@@ -156,6 +156,11 @@
 
     
 <div class="grid-container">
+  <div class="grid-item">Year:
+    <select id='yearSelect' multiple>
+    <option value='2020' selected>2020</option>
+    </select>
+  </div>
   <div class="grid-item">Category:
     <select id='categorySelect' multiple>
     <option value='Monitoring Violations' selected>Monitoring Violations</option>
@@ -228,6 +233,7 @@ This site was created by
 It is intended as a demo, rather than a fullly featured product.
 In the final version you will be able to:
 <ul>
+<li>See the full dataset, rather than just a one year sample</li>
 <li>Put multiple different datasets on the same map, with color-coded markers</li>
 <li>Download the plotted markers as a KML file that you can plug into Google Earth</li>
 <li>Filter markers by more reasonable criteria than the ones currently available</li>
@@ -255,7 +261,14 @@ If you have any feedback you can reach him at field.cady@gmail.com.
 		.setCheckBoxClick("1", function(target, args) {
 			console.log("Checkbox for item with value '1' was clicked and got value ", args.checked);
 		});
-
+  document.multiselect('#yearSelect')
+		.setCheckBoxClick("checkboxAll", function(target, args) {
+			console.log("Checkbox 'Select All' was clicked and got value ", args.checked);
+		})
+		.setCheckBoxClick("1", function(target, args) {
+			console.log("Checkbox for item with value '1' was clicked and got value ", args.checked);
+		});
+    
 	function enable() {
 		document.multiselect('#testSelect1').setIsEnabled(true);
 	}
