@@ -134,8 +134,15 @@ var getFilterFunction = function() {
 
 // Top-level functions below this line
 
+function toggleLoading() {
+console.log('foo');
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
 var updateMarkers = function() {
   console.log('in updateMarkers');
+  //document.getElementById("loader").style.display = "block";
+  sleep(5000);
   filter_func = getFilterFunction()
   for (i=0; i<markers.length; i++) {
     m = markers[i];
@@ -146,8 +153,17 @@ var updateMarkers = function() {
       m.remove(mymap);
     }
   };
+  //myFunction();
+  //document.getElementById("loader").style.display = "none";
 }
-
+var updateMarkersWithLoader = function() {
+  //setTimeout(loaderOn,10);
+  loaderOn();
+  setTimeout(function(){
+    updateMarkers();
+    setTimeout(loaderOff,500);
+  },500);
+}
 
 function sleep(milliseconds) {
   var start = new Date().getTime();
