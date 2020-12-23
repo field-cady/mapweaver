@@ -79,13 +79,13 @@ var addViolationsToMap = function(violations) {
 
 var violation2marker_html = function(vio) {
   violation_url = 'https://apps.ecology.wa.gov/paris/ComplianceAndViolations/PopupViolationTrigger.aspx?ViolationId='+vio['ViolationId']
-  clickable_name = '<h3>Facility:</h3><a target="_blank" href="'+violation_url+'">'+vio['Facility Name']+'</a>'
-  category = '<h3>Category:</h3>'+vio['Category']
-  permit_type = '<h3>Permit Type:</h3>'+vio['Permit Type']
-  date = '<h3>Violation Date:</h3>'+vio['Violation Date']
-  is_addressed = '<h3>Is Addressed:</h3>'+vio['Is Addressed']
+  clickable_name = '<b>Facility:</b><a target="_blank" href="'+violation_url+'">'+vio['Facility Name']+'</a>'
+  category = '<b>Category:</b>'+vio['Category']
+  permit_type = '<b>Permit Type:</b>'+vio['Permit Type']
+  date = '<b>Violation Date:</b>'+vio['Violation Date']
+  is_addressed = '<b>Is Addressed:</b>'+vio['Is Addressed']
   //return clickable_name + '<br>' + category + '<br>' + permit_type + '<br>' + date + '<br>' + is_addressed
-  return clickable_name +  category +  permit_type +  date +  is_addressed
+  return '<div class="marker"><h4>Details</h4>' + '<br>' + clickable_name + '<br>' +  category + '<br>' +  permit_type + '<br>' +  date + '<br>' +  is_addressed + '</div>'
 }
 
 var MAIN_CATEGORIES = ['Monitoring Violations', 'Effluent Violations', 'Reporting Violations']
