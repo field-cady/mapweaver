@@ -142,7 +142,7 @@ console.log('foo');
 var updateMarkers = function() {
   console.log('in updateMarkers');
   //document.getElementById("loader").style.display = "block";
-  sleep(5000);
+  //sleep(5000);
   filter_func = getFilterFunction()
   for (i=0; i<markers.length; i++) {
     m = markers[i];
