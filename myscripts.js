@@ -85,7 +85,7 @@ var violation2marker_html = function(vio) {
   date = '<b>Violation Date:</b>'+vio['Violation Date']
   is_addressed = '<b>Is Addressed:</b>'+vio['Is Addressed']
   //return clickable_name + '<br>' + category + '<br>' + permit_type + '<br>' + date + '<br>' + is_addressed
-  return '<div class="marker"><h4>Details</h4>' + '<br>' + clickable_name + '<br>' +  category + '<br>' +  permit_type + '<br>' +  date + '<br>' +  is_addressed + '</div>'
+  return '<div class="marker"><h4>Details</h4>' + clickable_name + '<br>' +  category + '<br>' +  permit_type + '<br>' +  date + '<br>' +  is_addressed + '</div>'
 }
 
 var MAIN_CATEGORIES = ['Monitoring Violations', 'Effluent Violations', 'Reporting Violations']
