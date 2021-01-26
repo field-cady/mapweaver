@@ -142,8 +142,43 @@
 <body ng-app="app">
 
 
+<h1>Explanatory Note</h1>
+<p>
+This site is a <b>prototype</b> of MapWeaver, a potential web application that
+is being developed by
+<a href="http://www.fieldcady.com">Field Cady</a>.
+There are many datasets in the world where the data is associated with
+physical locations, but no tool exists that shows those locations on a map.
+This is especially the case with a lot of government datasets, where they
+are mandated to make the data available but not required to make it intuitive.
+</p>
 
+<p>
+MapWeaver is a framework for plotting such
+datasets on a map.  You can have one dataset or several (with color-coded markers),
+and apply different filters to each.
+It can be publicly available datasets or ones that are internal to
+your organization.
+Depending on the datasets you use you can answer questions like:
+<ul>
+<li>Are there any known water quality violators upstream from a toxic measurement?</li>
+<li>Do burglaries and muggings happen in the same areas?</li>
+<li>Where have wild fires started recently?</li>
+</ul>
+The possibilities are endless, and all it takes is pointing and clicking
+on a map.
+</p>
 
+<p>
+Below is a prototype of MapWeaver, showing water quality violations in
+Washington state for the past year (from the PARIS dataset).
+The goal is to show you the interface and get you thinking about
+the possibilities with datasets that are relevant to your industry.
+Bear in mind that the production version would have more features
+and be prettier; this is intended as a proof of concept.
+If this looks intriguing, or if you have feedback, Field can
+be reached at field.cady@gmail.com.  Thank you for your input!
+</p>
 
 <h1>PARIS Violations in Last Year</h1>
 
@@ -227,20 +262,7 @@ function myFunction(state) {
 
 
 
-<p>
-This site was created by
-<a href="http://www.fieldcady.com">Field Cady</a>.
-It is intended as a demo, rather than a fullly featured product.
-In the final version you will be able to:
-<ul>
-<li>See the full dataset, rather than just a one year sample</li>
-<li>Put multiple different datasets on the same map, with color-coded markers</li>
-<li>Download the plotted markers as a KML file that you can plug into Google Earth</li>
-<li>Filter markers by more reasonable criteria than the ones currently available</li>
-<li>Enjoy better formatting of every part of the page</li>
-</ul>
-If you have any feedback you can reach him at field.cady@gmail.com.
-</p>
+
 
 <script type="text/javascript" src="myscripts.js"></script>
 
