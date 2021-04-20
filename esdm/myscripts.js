@@ -43,7 +43,7 @@ var downloadDataAndRender = function(url) {
 
 var renderData = function(dat) {
   console.log('foo');
-  console.log(dat['marker_blobs'].length);
+  //console.log(dat['marker_blobs'].length);
   addMarkersToMap(dat['marker_blobs']);
 }
 
@@ -62,6 +62,7 @@ var addMarkersToMap = function(blobs) {
     vio.marker = m;
     markers.push(m);
   };
+  
 }
 
 
