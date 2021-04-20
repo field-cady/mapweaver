@@ -57,7 +57,7 @@ var addMarkersToMap = function(blobs) {
     m = new mapboxgl.Marker({color: color})
       .setLngLat([vio['lon'], vio['lat']]);
       .setPopup(popup)
-      .setMaxWidth("500px")
+      .setMaxWidth("5000px")
       .addTo(mymap);
     //
     m.violation = vio;
