@@ -72,5 +72,5 @@ if (location.origin === "file://") {
     renderData(DEFAULT_DATA);
   } else {
     console.log('In the Cloud');
-    downloadDataAndRender("esdm/esdm_marker_blobs.json");
+    downloadDataAndRender("esdm_marker_blobs.json");
 }
