@@ -43,8 +43,8 @@ var downloadDataAndRender = function(url) {
 
 var renderData = function(dat) {
   console.log('foo');
-  console.log(dat.length);
-  addMarkersToMap(dat);
+  console.log(dat['marker_blobs'].length);
+  addMarkersToMap(dat['marker_blobs']);
 }
 
 var addMarkersToMap = function(blobs) {
@@ -72,5 +72,5 @@ if (location.origin === "file://") {
     renderData(DEFAULT_DATA);
   } else {
     console.log('In the Cloud');
-    downloadDataAndRender("esdm_marker_blobs.json");
+    downloadDataAndRender("esdm_data.json");
 }
