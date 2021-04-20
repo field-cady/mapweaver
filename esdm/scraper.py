@@ -85,7 +85,7 @@ def records_to_html(recs):
   #recs=[v for v in records_by_location.values() if len(v)>1][1]
   loc = recs[0]['location']
   html_start = f'''<h3><b>{loc}</b><h3>
-  <table>
+  <table border="1">
   <tr>
       <th>Name</th>
       <th>Degree</th>
@@ -111,7 +111,10 @@ blobs = [
     html=records_to_html(records))
   for loc, records in records_by_location.items()
   ]
-open('esdm_marker_blobs.json', 'w').write(''.join(json.dumps(b) for b in blobs))
+open('esdm_marker_blobs.json', 'w').write('\n'.join(json.dumps(b) for b in blobs))
+
+open('esdm_data.json', 'w').write(json.dumps({'marker_blobs':blobs}))
+
 
 
 
