@@ -1,0 +1,275 @@
+<head title="Overabundant Fish Lakes">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-34354121-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-34354121-1');
+</script>
+
+<!-- Leaflet Maps -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+ <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
+
+<link rel="icon" type="image/png" href="trout.png">
+
+<!--<script src="https://code.angularjs.org/1.6.9/angular.js"></script>-->
+
+<!--testing-->
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.0/mapbox-gl.css' rel='stylesheet' />
+
+
+	<link href="styles/multiselect.css" rel="stylesheet"/>
+	<script src="multiselect.min.js"></script>
+  
+  
+  
+<style>
+.marker {
+  width: 250px;
+
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto;
+  padding: 0px;
+}
+.grid-item {
+  border: 0px solid rgba(0, 0, 0, 0.8);
+  padding: 0px;
+  font-size: 20px;
+  text-align: left;
+}
+</style>
+  
+  
+<style>
+/* Popup container - can be anything you want */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 250px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+</style>
+
+
+<style>
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid blue;
+  border-bottom: 16px solid blue;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+
+</head>
+
+
+
+
+<body ng-app="app">
+
+
+<h1>Explanatory Note</h1>
+<p>
+This site is a <b>prototype</b> of MapWeaver, a potential web application that
+is being developed by
+<a href="http://www.fieldcady.com">Field Cady</a>.
+There are many datasets in the world where the data is associated with
+physical locations, but no tool exists that shows those locations on a map.
+This is especially the case with a lot of government datasets, where they
+are mandated to make the data available but not required to make it intuitive.
+</p>
+
+<p>
+MapWeaver is a framework for plotting such
+datasets on a map.  You can have one dataset or several (with color-coded markers),
+and apply different filters to each.
+It can be publicly available datasets or ones that are internal to
+your organization.
+Depending on the datasets you use you can answer questions like:
+<ul>
+<li>Are there any known water quality violators upstream from a toxic measurement?</li>
+<li>Do burglaries and muggings happen in the same areas?</li>
+<li>Where have wild fires started recently?</li>
+</ul>
+The possibilities are endless, and all it takes is pointing and clicking
+on a map.
+</p>
+
+<p>
+Below is a prototype of MapWeaver, showing water quality violations in
+Washington state for the past year (from the PARIS dataset).
+The goal is to show you the interface and get you thinking about
+the possibilities with datasets that are relevant to your industry.
+Bear in mind that the production version would have more features
+and be prettier; this is intended as a proof of concept.
+If this looks intriguing, or if you have feedback, Field can
+be reached at field.cady@gmail.com.  Thank you for your input!
+</p>
+
+<h1>PARIS Violations in Last Year</h1>
+
+
+
+
+<b>Filters:</b>
+<br>
+
+
+    
+<div class="grid-container">
+  <div class="grid-item">Year:
+    <select id='yearSelect' multiple>
+    <option value='2020' selected>2020</option>
+    </select>
+  </div>
+  <div class="grid-item">Category:
+    <select id='categorySelect' multiple>
+    <option value='Monitoring Violations' selected>Monitoring Violations</option>
+    <option value='Effluent Violations' selected>Effluent Violations</option>
+    <option value='Reporting Violations' selected>Reporting Violations</option>
+    <option value='Other' selected>Other</option>
+    </select>
+  </div>
+  <div class="grid-item">Permit Type:
+    <select id='typeSelect' multiple>
+    <option value='Municipal NPDES IP' selected>Municipal NPDES IP</option>
+    <option value='Industrial NPDES IP' selected>Industrial NPDES IP</option>
+    <option value='Industrial (IU) to POTW/PRIVATE SWDP IP' selected>Industrial (IU) to POTW/PRIVATE SWDP IP</option>
+    <option value='Municipal to ground SWDP IP' selected>Municipal to ground SWDP IP</option>
+    <option value='Industrial to ground SWDP IP' selected>Industrial to ground SWDP IP</option>
+    <option value='Sand and Gravel GP' selected>Sand and Gravel GP</option>
+    <option value='Reclaimed Water IP' selected>Reclaimed Water IP</option>
+    <option value='Other' selected>Other</option>
+    </select>
+  </div>
+  <div class="grid-item">
+    Submit:
+    <button onclick='updateMarkersWithLoader();'>Apply Filters</button>
+  </div>
+</div>
+
+
+
+
+
+<div class="popup">
+  <span class="popuptext" id="myPopup">Loading</span>
+  
+</div>
+
+<script>
+// When the user clicks on div, open the popup
+function loaderOn() {
+  myFunction('show')
+}
+function loaderOff() {
+    myFunction('hide')
+}
+function myFunction(state) {
+  var popup = document.getElementById("myPopup");
+  console.log('contains:', popup.classList.contains('show'));
+  var cur_state = popup.classList.contains('show') ? 'show' : 'hide'
+  if (cur_state != state) popup.classList.toggle("show");
+  console.log('contains:', popup.classList.contains('show'));
+  //updateMarkers()
+  //var popup = document.getElementById("myPopup");
+  //popup.classList.toggle("show");
+}
+</script>
+
+
+<br>
+
+<!--
+<div style="height:70%;width:70%" id="mapid"></div>
+-->
+<!--testing-->
+<div id='mapid' style='width: 100%; height: 50%;'></div>
+
+
+
+
+
+<script type="text/javascript" src="foo.js"></script>
+
+
+<!-- Dropdown Checkbox init -->
+<script>
+  initialize_checkboxes()
+</script>
+
+</body>
