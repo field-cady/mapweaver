@@ -30,6 +30,7 @@ df = pd.read_csv('copied_therapists.tsv', sep='\t', names=['first_name', 'last_n
   'degree', 'email', 'city', 'state', 'country'])
 df['location'] = df.city.fillna('') + ', ' + df.state.fillna('') + ', ' + df.country.fillna('')
 df['degree'] = df.degree.apply(lambda x: x if str(x).lower()!='nan' else '')
+df['email'] = df.email.apply(lambda x: x if str(x).lower()!='nan' else '')
 
 bad_location = 'Sarcamento / Toronto, California / Ontario, United States / Canada'
 replacements = [
