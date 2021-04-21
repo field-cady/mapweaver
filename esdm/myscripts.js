@@ -2,9 +2,9 @@
 // Global Variables
 
 var DEFAULT_DATA = {'marker_blobs':[
-{"location": "Kenthurst, New South Wales, Australia", "lat": -33.662742, "lon": 151.002904, "html": "<h3><b>Kenthurst, New South Wales, Australia</b><h3>\n  <table>\n  <tr>\n      <th>Name</th>\n      <th>Degree</th>\n      <th>Email</th>\n    </tr>\n\n    <tr>\n      <th>Anne Chalfant</th>\n      <th>PsyD</th>\n      <th>info@anniescentre.com</th>\n      </tr>\n    "},
-{"location": "Wollongong, NSW, Australia", "lat": -34.428377, "lon": 150.893892, "html": "<h3><b>Wollongong, NSW, Australia</b><h3>\n  <table>\n  <tr>\n      <th>Name</th>\n      <th>Degree</th>\n      <th>Email</th>\n    </tr>\n\n    <tr>\n      <th>Arina Atkova</th>\n      <th>BA, Reg. Teacher</th>\n      <th>Arina.aktova@hotmail.com</th>\n      </tr>\n    "},
-{"location": "Cobbitty, New South Wales, Australia", "lat": -34.011739, "lon": 150.67192, "html": "<h3><b>Cobbitty, New South Wales, Australia</b><h3>\n  <table>\n  <tr>\n      <th>Name</th>\n      <th>Degree</th>\n      <th>Email</th>\n    </tr>\n\n    <tr>\n      <th>Belinda Fordham-Latta</th>\n      <th>M.Ed</th>\n      <th>ku.cobbitty@ku.com.au</th>\n      </tr>\n    "}
+{"location": "Kenthurst, New South Wales, Australia", "n_therapists":1, "lat": -33.662742, "lon": 151.002904, "html": "<h3><b>Kenthurst, New South Wales, Australia</b><h3>\n  <table>\n  <tr>\n      <th>Name</th>\n      <th>Degree</th>\n      <th>Email</th>\n    </tr>\n\n    <tr>\n      <th>Anne Chalfant</th>\n      <th>PsyD</th>\n      <th>info@anniescentre.com</th>\n      </tr>\n    "},
+{"location": "Wollongong, NSW, Australia", "n_therapists":1, "lat": -34.428377, "lon": 150.893892, "html": "<h3><b>Wollongong, NSW, Australia</b><h3>\n  <table>\n  <tr>\n      <th>Name</th>\n      <th>Degree</th>\n      <th>Email</th>\n    </tr>\n\n    <tr>\n      <th>Arina Atkova</th>\n      <th>BA, Reg. Teacher</th>\n      <th>Arina.aktova@hotmail.com</th>\n      </tr>\n    "},
+{"location": "Cobbitty, New South Wales, Australia", "n_therapists":2, "lat": -34.011739, "lon": 150.67192, "html": "<h3><b>Cobbitty, New South Wales, Australia</b><h3>\n  <table>\n  <tr>\n      <th>Name</th>\n      <th>Degree</th>\n      <th>Email</th>\n    </tr>\n\n    <tr>\n      <th>Belinda Fordham-Latta</th>\n      <th>M.Ed</th>\n      <th>ku.cobbitty@ku.com.au</th>\n      </tr>\n    "}
 ]}
 
 //var data = null;
@@ -53,9 +53,17 @@ var addMarkersToMap = function(blobs) {
   for (var j=0; j<blobs.length; j++) {
     vio = blobs[j];
     color = 'blue'
+    sz = (vio['n_therapists']==1) ? 1 : 0;//'small' : 'medium'
+    //sz = sz + 'px'
+    console.log(sz)
+    //if (vio['n_therapists']==1): sz='small'
+    //else: sz = 'medium'
     var popup = new mapboxgl.Popup()
       .setHTML(vio['html']);
-    m = new mapboxgl.Marker({color: color})
+    m = new mapboxgl.Marker({
+        color: color,
+        scale: sz
+      })
       .setLngLat([vio['lon'], vio['lat']])
       .setPopup(popup)
       .addTo(mymap);
