@@ -1,4 +1,4 @@
-# mapweaver
+# MapWeaver
 
 There is a lot of data on the web that is inherently location-based,
 but that is presented in a text-based format (lists of addresses, etc).
