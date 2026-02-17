@@ -1,0 +1,19 @@
+{"lat": 37.7749, "lon": -122.4194, "name": "Alice Johnson", "email": "alice@example.com", "phone": "(415) 555-0101", "organization": "Tech Innovators SF", "role": "Senior Developer"}
+{"lat": 37.7749, "lon": -122.4194, "name": "Bob Smith", "email": "bob.smith@example.com", "phone": "(415) 555-0102", "organization": "Tech Innovators SF", "role": "Product Manager"}
+{"lat": 37.7749, "lon": -122.4194, "name": "Carol Davis", "email": "carol.d@example.com", "phone": "(415) 555-0103", "organization": "StartupHub SF", "role": "Founder"}
+{"lat": 40.7128, "lon": -74.0060, "name": "David Wilson", "email": "dwilson@example.com", "phone": "(212) 555-0201", "organization": "NYC Ventures", "role": "Investment Director"}
+{"lat": 40.7128, "lon": -74.0060, "name": "Emma Brown", "email": "emma.brown@example.com", "phone": "(212) 555-0202", "organization": "NYC Ventures", "role": "Analyst"}
+{"lat": 34.0522, "lon": -118.2437, "name": "Frank Martinez", "email": "frank.m@example.com", "phone": "(310) 555-0301", "organization": "LA Digital Studios", "role": "Creative Director"}
+{"lat": 41.8781, "lon": -87.6298, "name": "Grace Lee", "email": "grace.lee@example.com", "phone": "(312) 555-0401", "organization": "Chicago Consulting Group", "role": "Senior Consultant"}
+{"lat": 41.8781, "lon": -87.6298, "name": "Henry Taylor", "email": "h.taylor@example.com", "phone": "(312) 555-0402", "organization": "Midwest Analytics", "role": "Data Scientist"}
+{"lat": 47.6062, "lon": -122.3321, "name": "Iris Chen", "email": "iris.chen@example.com", "phone": "(206) 555-0501", "organization": "Seattle Tech Co", "role": "Engineering Manager"}
+{"lat": 42.3601, "lon": -71.0589, "name": "Jack Thompson", "email": "jack.t@example.com", "phone": "(617) 555-0601", "organization": "Boston Biotech", "role": "Research Lead"}
+{"lat": 42.3601, "lon": -71.0589, "name": "Kelly Anderson", "email": "kelly.a@example.com", "phone": "(617) 555-0602", "organization": "Boston Biotech", "role": "Lab Manager"}
+{"lat": 42.3601, "lon": -71.0589, "name": "Liam O'Brien", "email": "liam.ob@example.com", "phone": "(617) 555-0603", "organization": "MIT Innovations", "role": "Postdoc Researcher"}
+{"lat": 33.4484, "lon": -112.0740, "name": "Maria Garcia", "email": "maria.garcia@example.com", "phone": "(602) 555-0701", "organization": "Phoenix Solar", "role": "Project Manager"}
+{"lat": 39.7392, "lon": -104.9903, "name": "Nathan White", "email": "nate.white@example.com", "phone": "(303) 555-0801", "organization": "Denver Outdoors Inc", "role": "Operations Director"}
+{"lat": 30.2672, "lon": -97.7431, "name": "Olivia Martinez", "email": "olivia.m@example.com", "phone": "(512) 555-0901", "organization": "Austin Startups", "role": "CEO"}
+{"lat": 30.2672, "lon": -97.7431, "name": "Paul Rodriguez", "email": "paul.r@example.com", "phone": "(512) 555-0902", "organization": "Austin Startups", "role": "CTO"}
+{"lat": 25.7617, "lon": -80.1918, "name": "Quinn Davis", "email": "quinn.d@example.com", "phone": "(305) 555-1001", "organization": "Miami Finance Group", "role": "Financial Advisor"}
+{"lat": 45.5152, "lon": -122.6784, "name": "Rachel Kim", "email": "rachel.kim@example.com", "phone": "(503) 555-1101", "organization": "Portland Design Co", "role": "UX Designer"}
+{"lat": 32.7767, "lon": -96.7970, "name": "Sam Johnson", "email": "sam.j@example.com", "phone": "(214) 555-1201", "organization": "Dallas Tech Hub", "role": "Developer Advocate"}
